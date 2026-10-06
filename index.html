@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>VisionVoice AI — Smart Vision &amp; Voice Assistant</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VisionVoice AI - Real-time multimodal edge computer vision and voice assistant powered by TensorFlow.js, Web Speech API, and Web Audio API.">
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>VisionVoice AI</h1>
+    <p class="subtitle">Real-Time Multimodal Edge Vision &amp; Voice Assistant</p>
+
+    <p id="modelStatusNotice">⏳ Loading TensorFlow.js neural network model... Please wait.</p>
+
+    <section id="demos" class="invisible">
+
+        <p class="instruction">Click <strong>"Enable Webcam"</strong> and allow permissions to activate real-time object detection, voice synthesis, and live speech subtitles.</p>
+
+        <!-- Side-by-Side Layout: Camera & Audio Panel -->
+        <div class="dashboard-container">
+            <!-- Camera & AI Detection Feed -->
+            <div id="liveView" class="camView">
+                <button id="webcamButton">Enable Webcam</button>
+                <video id="webcam" autoplay muted width="640" height="480"></video>
+
+                <!-- Live Speech Subtitles Overlay -->
+                <div id="liveCaption" class="live-caption">
+                    <span id="micDot" class="mic-dot"></span>
+                    <span id="speechText" class="speech-text">🎙️ Speak into microphone to see live subtitles...</span>
+                </div>
+            </div>
+
+            <!-- Audio Alert & Web Speech Controls (Beside Camera) -->
+            <div class="audio-panel">
+                <div class="audio-panel-header">
+                    <span class="audio-title">🔊 Audio Alerts &amp; Voice Synthesis (Web Speech API)</span>
+                    <span id="audioStatusPill" class="status-pill">Audio Standby</span>
+                </div>
+                <div class="audio-panel-controls">
+                    <label class="control-item">
+                        <input type="checkbox" id="ttsToggle" checked>
+                        <span>Text-to-Speech (Voice)</span>
+                    </label>
+                    <label class="control-item">
+                        <input type="checkbox" id="chimeToggle" checked>
+                        <span>Alert Chime (Web Audio)</span>
+                    </label>
+                    <label class="control-item">
+                        <input type="checkbox" id="micToggle" checked>
+                        <span>Speech-to-Text (Subtitles)</span>
+                    </label>
+                    <div class="control-item select-item">
+                        <label for="targetObjectSelect">Target Object:</label>
+                        <select id="targetObjectSelect">
+                            <option value="all">Any Object</option>
+                            <option value="person">Person</option>
+                            <option value="cell phone">Cell Phone</option>
+                            <option value="cup">Cup</option>
+                            <option value="bottle">Bottle</option>
+                            <option value="laptop">Laptop</option>
+                            <option value="book">Book</option>
+                            <option value="backpack">Backpack</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="audioNotification" class="audio-notification"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Import TensorFlow.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
+    <!-- Load the coco-ssd model to use to recognize things in images -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+    <!-- Import the page's JavaScript to do some stuff -->
+    <script src="script.js" defer></script>
+</body>
+
+</html>

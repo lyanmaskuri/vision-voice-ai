@@ -1,0 +1,288 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 2em;
+    color: #2c3e50;
+    background-color: #fcfcfc;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #FF6F00;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    margin: 4px 0 16px 0;
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#modelStatusNotice {
+    background: #fff8e1;
+    border-left: 4px solid #ffb300;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #8d6e63;
+    max-width: 640px;
+    margin-bottom: 16px;
+}
+
+.instruction {
+    color: #475569;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.removed {
+    display: none;
+}
+
+.invisible {
+    opacity: 0.2;
+}
+
+/* Side-by-side Dashboard */
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.camView {
+    position: relative;
+    width: 640px;
+    height: 480px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #151515;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.camView p {
+    position: absolute;
+    padding: 5px;
+    background-color: rgba(255, 111, 0, 0.85);
+    color: #FFF;
+    border: 1px dashed rgba(255, 255, 255, 0.7);
+    z-index: 2;
+    font-size: 12px;
+}
+
+.highlighter {
+    background: rgba(0, 255, 0, 0.25);
+    border: 1px dashed #fff;
+    z-index: 1;
+    position: absolute;
+}
+
+/* Button styling - centered in the camera placeholder */
+#webcamButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    background: #FF6F00;
+    color: #FFF;
+    border: none;
+    padding: 14px 26px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(255, 111, 0, 0.4);
+    transition: background 0.2s, transform 0.1s;
+}
+
+#webcamButton:hover {
+    background: #E65100;
+    transform: translate(-50%, -52%);
+}
+
+#webcamButton:active {
+    transform: translate(-50%, -50%);
+}
+
+/* Audio Panel styling (beside camera) */
+.audio-panel {
+    background: #f8f9fa;
+    border: 1px solid #e1e4e8;
+    border-left: 4px solid #FF6F00;
+    border-radius: 10px;
+    padding: 20px;
+    width: 320px;
+    min-width: 280px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.audio-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaecef;
+}
+
+.audio-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #24292e;
+}
+
+.status-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: #e9ecef;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.status-pill.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.audio-panel-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 13px;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.control-item input[type="checkbox"] {
+    accent-color: #FF6F00;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.select-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.select-item select {
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    background: #fff;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+}
+
+.audio-notification {
+    min-height: 20px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #FF6F00;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.audio-notification.show {
+    opacity: 1;
+}
+
+/* Live Subtitles Overlay (anchored inside video view) */
+.live-caption {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: calc(100% - 30px);
+    box-sizing: border-box;
+    background: rgba(18, 18, 22, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #f1f1f1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.live-caption.active {
+    display: flex;
+}
+
+.live-caption.has-speech {
+    border-color: rgba(255, 111, 0, 0.7);
+    background: rgba(14, 14, 18, 0.95);
+    box-shadow: 0 6px 22px rgba(255, 111, 0, 0.3);
+}
+
+.mic-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #6c757d;
+    flex-shrink: 0;
+    transition: background 0.3s;
+}
+
+.mic-dot.recording {
+    background: #28a745;
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    animation: mic-pulse 1.8s infinite;
+}
+
+@keyframes mic-pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    }
+    70% {
+        transform: scale(1.15);
+        box-shadow: 0 0 0 8px rgba(40, 167, 69, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+.speech-text {
+    flex-grow: 1;
+    color: #e0e0e0;
+    word-break: break-word;
+}
+
+.speech-text strong {
+    color: #FF9800;
+    font-weight: 600;
+}
